@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<head>
+<script src='library.js' type="text/javascript"></script>
+<script type="text/javascript">
+function updateInfos() {
+  withMusicTab(function(tab) {
+    chrome.tabs.sendRequest(tab.id, {
+      music_infomation: true
+    }, function(resp) {
+      var player = resp.player;
+
+      var info = resp.information;
+
+      var title = document.getElementById("song");
+      var art = document.getElementById("album_art");
+      var artist = document.getElementById("artist");
+  
+      var play = document.getElementById("playPause");
+
+      if (play.title != player.play_pause) {
+        var image = (player.play_pause == "Pause") ? 
+          'pause_button.png' : 'play_button.png';
+
+        play.title = player.play_pause;
+        play.firstChild.nextSibling.src = image;
+      }
+    
+      title.innerText = info.song;
+      artist.innerText = info.artist;
+      art.src = info.album_art;
+      art.style = 'display:block';
+    });
+  });
+}
+
+function registerPress(kind) {
+  return function () {
+    withMusicTab(function (tab) {
+      chrome.tabs.sendRequest(tab.id, {
+        "music_shortcut": true,
+        "music_id": kind
+      }, function (resp) {
+        updateInfos();
+      });
+    });
+  };
+}
+
+function updateInterval() {
+  updateInfos();
+  setTimeout('updateInterval()', 1000);
+}
+
+function register() {
+  var ids = ['playPause', 'rew', 'ff'];
+
+  for (var i = 0; i < ids.length; i ++) {
+    document.getElementById(ids[i]).onclick = registerPress(ids[i]);
+  }
+}
+
+updateInterval();
+</script>
+<style type = "text/css">
+
+body {
+  font-family: 'Verdana';
+}
+
+#player {
+  background: url('bg_now_playing_bar_pattern.png');
+  background-repeat-x: repeat;
+  background-repeat-y: no-repeat;
+  padding-top: 16px;
+  height: 40px;
+}
+
+#player_controls {
+  overflow: hidden;
+}
+
+#song_information {
+  width: 300px;
+  overflow: hidden;
+}
+
+.song_art {
+  float: left;
+}
+
+.other_info {
+  float: right;
+  width: 55%;
+  padding-top: 10%;
+}
+
+.song_title {
+  font-weight: bold;
+}
+
+.song_artist {
+  font-size: 14px;
+}
+
+#rew {
+  float: left;
+  margin-left: 10px;
+}
+
+.control:hover {
+  cursor: pointer;
+}
+
+#ff {
+  float: right;
+  margin-right: 20px;
+}
+
+#playPause {
+  float: left;
+  margin-left: 35%;
+}
+
+.control {
+  width: 26px;
+} 
+</style>
+</head>
+<body onload="register()"> 
+  <div id="song_information">
+    <div class="song_art">
+      <img id="album_art" src='' style="hidden"/>
+    </div>
+    <div class="other_info">
+      <div class="song_title">
+        <span id="song"></span>
+      </div>
+      <div class="song_artist">
+        <span id="artist"></span>
+      </div>
+    </div>
+  </div>
+  <div id="player">
+    <div id="player_controls">
+      <div id="rew" class="control">
+        <img src="rew_button.png"/>
+      </div>
+      <div id="playPause" title="Play" class ="control">
+        <img src='play_button.png'/> 
+      </div>
+      <div id="ff" class="control">
+        <img src="ff_button.png"/>
+      </div>
+    </div>
+  </div>
+</body>

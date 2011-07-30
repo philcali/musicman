@@ -1,0 +1,1 @@
+musicSendPress('playPause', 32);
