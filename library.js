@@ -4,7 +4,7 @@ function withMusicTab(doTab) {
       var tabs = windows[j].tabs;
 
       for (var i = 0; i < tabs.length; i ++) {
-        if (tabs[i].url.match(/music.google.com/)) {
+        if (tabs[i].url.match(/play.google.com/)) {
           doTab(tabs[i]);
         }
       }

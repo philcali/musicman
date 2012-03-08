@@ -8,7 +8,7 @@
   },
   "options_page": "options.html",
   "permissions": [
-    "tabs", "*://music.google.com/*"
+    "tabs", "*://play.google.com/music/*"
   ],
   "background_page": "background.html",
   "content_scripts": [
