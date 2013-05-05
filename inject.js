@@ -1,24 +1,23 @@
-
 // TODO: make the shortcuts editable
 window.addEventListener("keydown", function(event) {
   var modifier = event.ctrlKey || event.metaKey;
-  
+
   var keyMapper = [32, 37, 39];
- 
+
   var valid = false;
   for (var i = 0; i < keyMapper.length; i++) {
     valid = keyMapper[i] == event.keyCode || valid;
   }
- 
+
   if (modifier && event.shiftKey && valid) {
     chrome.extension.sendRequest({
       "music_shortcut": valid,
       "music_keycode": event.keyCode
-    });    
+    });
   }
 }, false);
 
-chrome.extension.onRequest.addListener (
+chrome.runtime.onMessage.addListener (
   function (req, sender, sendResponse) {
     if (req.music_shortcut) {
       sendResponse({
@@ -41,7 +40,7 @@ chrome.extension.onRequest.addListener (
 
 function musicSendPress(id) {
   var button = document.getElementById(id);
-  
+
   // We can't do anything yet
   if (!button) {
     return false;

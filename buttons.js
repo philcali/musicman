@@ -1,1 +1,0 @@
-musicSendPress('playPause', 32);

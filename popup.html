@@ -4,17 +4,17 @@
 <script type="text/javascript">
 function updateInfos() {
   withMusicTab(function(tab) {
-    chrome.tabs.sendRequest(tab.id, {
+    chrome.tabs.sendMessage(tab.id, {
       music_infomation: true
     }, function(resp) {
       var player = resp.player;
 
       var info = resp.information;
 
-      var title = document.getElementById("song");
-      var art = document.getElementById("album_art");
-      var artist = document.getElementById("artist");
-  
+      var title = document.getElementById("playerSongTitle");
+      var art = document.getElementById("playingAlbumArt");
+      var artist = document.getElementById("player-artist");
+
       var play = document.getElementById("playPause");
 
       if (play.title != player.play_pause) {
@@ -24,7 +24,7 @@ function updateInfos() {
         play.title = player.play_pause;
         play.firstChild.nextSibling.src = image;
       }
-    
+
       title.innerText = info.song;
       artist.innerText = info.artist;
       art.src = info.album_art;
@@ -36,7 +36,7 @@ function updateInfos() {
 function registerPress(kind) {
   return function () {
     withMusicTab(function (tab) {
-      chrome.tabs.sendRequest(tab.id, {
+      chrome.tabs.sendMessage(tab.id, {
         "music_shortcut": true,
         "music_id": kind
       }, function (resp) {

@@ -1,4 +1,4 @@
-chrome.extension.onRequest.addListener(
+chrome.runtime.onMessage.addListener(
   function(req, sender, sendResponse) {
     if (req.music_shortcut) {
       var id = function() {
@@ -8,14 +8,11 @@ chrome.extension.onRequest.addListener(
           case 39: return 'ff';
         }
       }();
-      console.info(id);
       withMusicTab (function(tab) {
-        chrome.tabs.sendRequest(tab.id, {
+        chrome.tabs.sendMessage(tab.id, {
           "music_shortcut": true,
           "music_id": id,
           "music_keycode": req.music_keycode
-        }, function(success) {
-          console.info(success);
         });
       });
     }

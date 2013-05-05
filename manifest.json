@@ -1,7 +1,7 @@
 {
   "name": "Music Controller",
-  "version": "0.1.0",
-  "description": "Creates keyboard shortcuts to control music.google.com",
+  "version": "0.1.2",
+  "description": "Creates keyboard shortcuts to control play.google.com/music",
   "browser_action": {
     "default_icon": "icon.png",
     "popup": "popup.html"
@@ -10,7 +10,10 @@
   "permissions": [
     "tabs", "*://play.google.com/music/*"
   ],
-  "background_page": "background.html",
+  "background": {
+    "scripts": ["library.js", "keyboard.js"],
+    "persistent": false,
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
