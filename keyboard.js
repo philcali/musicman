@@ -13,7 +13,13 @@ chrome.runtime.onMessage.addListener(
           "music_shortcut": true,
           "music_id": id,
           "music_keycode": req.music_keycode
-        });
+        }, sendResponse);
+      });
+    } else {
+      withMusicTab (function(tab) {
+        chrome.tabs.sendMessage(tab.id, {
+          "music_information": true
+        }, sendResponse);
       });
     }
   }

@@ -10,7 +10,7 @@ window.addEventListener("keydown", function(event) {
   }
 
   if (modifier && event.shiftKey && valid) {
-    chrome.extension.sendRequest({
+    chrome.runtime.sendMessage({
       "music_shortcut": valid,
       "music_keycode": event.keyCode
     });
@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener (
       sendResponse({
         "success": musicSendPress(req.music_id)
       });
-    } else if (req.music_infomation) {
+    } else {
       sendResponse({
         "player": {
           "play_pause": document.getElementById('playPause').title
@@ -48,6 +48,7 @@ function musicSendPress(id) {
 
   var down = document.createEvent("MouseEvent");
   var up = document.createEvent("MouseEvent");
+
   down.initMouseEvent("mousedown", true, false);
   button.dispatchEvent(down);
   up.initEvent("mouseup", true, false);
