@@ -30,8 +30,8 @@ chrome.runtime.onMessage.addListener (
         },
         "information": {
           "album_art": document.getElementById("playingAlbumArt").src,
-          "song": document.getElementById("playerSongTitle").firstChild.title,
-          "artist": document.getElementById("playerArtist").firstChild.title
+          "song": document.getElementById("playerSongTitle").firstChild.innerText,
+          "artist": document.getElementById("player-artist").firstChild.innerText
         }
       });
     }

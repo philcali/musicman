@@ -10,7 +10,7 @@ function updateInfos() {
 
       var title = document.getElementById("song");
       var art = document.getElementById("album_art");
-      var artist = document.getElementById("art");
+      var artist = document.getElementById("artist");
 
       var play = document.getElementById("playPause");
 
