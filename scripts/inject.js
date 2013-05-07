@@ -1,4 +1,4 @@
-// TODO: make the shortcuts editable
+// TODO: make the shortcuts editable, via option page
 window.addEventListener("keydown", function(event) {
   var modifier = event.ctrlKey || event.metaKey;
 

@@ -3,30 +3,34 @@
   "manifest_version": 2,
   "version": "0.1.2",
   "description": "Creates keyboard shortcuts to control play.google.com/music",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "images/icon16.png",
     "default_popup": "popup.html"
   },
-  "options_page": "options.html",
   "permissions": [
     "tabs", "*://play.google.com/music/*"
   ],
   "background": {
-    "scripts": ["library.js", "keyboard.js"],
+    "scripts": ["scripts/library.js", "scripts/keyboard.js"],
     "persistent": false
   },
   "web_accessible_resources": [
-    "bg_now_playing_bar_pattern.png",
-    "ff_button.png",
-    "play_button.png",
-    "pause_button.png",
-    "rew_button.png",
-    "library.js"
+    "images/bg_now_playing_bar_pattern.png",
+    "images/ff_button.png",
+    "images/play_button.png",
+    "images/pause_button.png",
+    "images/rew_button.png",
+    "scripts/library.js"
   ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["inject.js"],
+      "js": ["scripts/inject.js"],
       "run_at": "document_end"
     }
   ]

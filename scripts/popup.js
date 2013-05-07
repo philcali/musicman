@@ -16,7 +16,8 @@ function updateInfos() {
 
       if (play.title != player.play_pause) {
         var image = (player.play_pause == "Pause") ?
-          'pause_button.png' : 'play_button.png';
+          'images/pause_button.png' :
+          'images/play_button.png';
 
         play.title = player.play_pause;
         play.firstChild.nextSibling.src = image;
